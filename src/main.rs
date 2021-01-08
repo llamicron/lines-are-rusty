@@ -16,6 +16,7 @@ fn main() {
                 .help("The .rm (or .lines) file to read from. If omitted, data is expected to be piped in.")
                 .index(1)
                 .empty_values(true)
+                .required(true)
         )
         .arg(
             Arg::with_name("output")
@@ -46,7 +47,9 @@ fn main() {
                 .possible_values(&["svg", "pdf"])
         )
         .get_matches();
+    
     let output_filename = matches.value_of("output");
+    
     let output_type_string = matches.value_of("output-type").or({
         output_filename
             .and_then(|output_filename| Path::new(output_filename).extension())
